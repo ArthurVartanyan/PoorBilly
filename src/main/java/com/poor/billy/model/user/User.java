@@ -1,10 +1,15 @@
 package com.poor.billy.model.user;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * User class.
  *
  * @author King Arthuro Vartanyan / 29.06.2021
  */
+@Getter
+@Setter
 public class User {
 
     /**
