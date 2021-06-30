@@ -1,5 +1,8 @@
 package com.poor.billy.model.operation;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -8,6 +11,8 @@ import java.util.Date;
  *
  * @author King Arthuro Vartanyan / 30.06.2021
  */
+@Getter
+@Setter
 public abstract class Operation {
 
     /**
