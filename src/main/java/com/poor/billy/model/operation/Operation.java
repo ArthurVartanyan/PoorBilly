@@ -3,6 +3,7 @@ package com.poor.billy.model.operation;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -13,15 +14,24 @@ import java.util.Date;
  */
 @Getter
 @Setter
-public abstract class Operation {
+@Entity
+@Table(name= "operation", schema = "public")
+@Inheritance(strategy = InheritanceType.JOINED)
+public class Operation {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    protected Long id;
 
     /**
      * Income or spending transaction sum
      */
+    @Column(name = "sum")
     protected BigDecimal sum;
 
     /**
      * Income or spending transaction date
      */
+    @Column(name = "transaction_date")
     protected Date transactionDate;
 }
