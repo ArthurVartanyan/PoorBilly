@@ -1,11 +1,12 @@
 package com.poor.billy.service;
 
 import com.poor.billy.dto.UserRegistrationDTO;
-import com.poor.billy.exceptions.UserIllegalArgumentException;
+import com.poor.billy.exceptions.InvalidArgumentException;
 import com.poor.billy.model.user.Role;
 import com.poor.billy.model.user.User;
 import com.poor.billy.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -13,10 +14,17 @@ public class UserService {
 
     private UserRepository userRepository;
 
+    private BCryptPasswordEncoder passwordEncoder;
+
     // DI
     @Autowired
     public void setUserRepository(UserRepository userRepository) {
         this.userRepository = userRepository;
+    }
+
+    @Autowired
+    public void setPasswordEncoder(BCryptPasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
     }
 
     /**
@@ -32,9 +40,9 @@ public class UserService {
         user.setLogin(userRegistrationDTO.getLogin());
         user.setRole(Role.FINANCIER);
         if (userRegistrationDTO.getPassword().equals(userRegistrationDTO.getPasswordControl())) {
-            user.setPassword(userRegistrationDTO.getPassword());
+            user.setPassword(passwordEncoder.encode(userRegistrationDTO.getPassword()));
         } else {
-            throw new UserIllegalArgumentException("Error! Password mismatch!");
+            throw new InvalidArgumentException("Error! Password mismatch!");
         }
         return userRepository.save(user).getId();
     }
