@@ -36,6 +36,7 @@ public class User {
      * User role
      */
     @Column(name = "role")
+    @Enumerated(EnumType.STRING)
     private Role role;
 
     /**
