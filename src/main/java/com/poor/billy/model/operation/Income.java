@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-@Table(name = "spending", schema = "public")
+@Table(name = "income", schema = "public")
 public class Income extends Operation {
 
     /**
