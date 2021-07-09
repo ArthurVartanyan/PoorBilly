@@ -1,5 +1,6 @@
 package com.poor.billy.security;
 
+import com.poor.billy.mapper.UserMapper;
 import com.poor.billy.model.user.User;
 import com.poor.billy.repository.UserRepository;
 import com.poor.billy.security.jwt.JWTUser;
