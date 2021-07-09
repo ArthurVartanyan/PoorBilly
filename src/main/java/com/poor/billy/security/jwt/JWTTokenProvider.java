@@ -86,7 +86,7 @@ public class JWTTokenProvider {
      */
     public String resolveToken(HttpServletRequest request) {
         String bearerToken = request.getHeader("Authorization");
-        if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
+        if (bearerToken != null && bearerToken.startsWith("Bearer_")) {
             return bearerToken.substring(7);
         }
         return null;

@@ -16,6 +16,9 @@ import javax.persistence.*;
 @Table(name = "pg_user", schema = "public")
 public class User {
 
+    public static final String ADMIN = "ADMIN";
+    public static final String FINANCIER = "FINANCIER";
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

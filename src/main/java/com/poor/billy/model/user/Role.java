@@ -1,5 +1,7 @@
 package com.poor.billy.model.user;
 
+import lombok.Getter;
+
 /**
  * Roles for user in system(at the moment there are two roles: administrator and financier).
  *

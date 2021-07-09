@@ -2,6 +2,7 @@ package com.poor.billy.controller;
 
 import com.poor.billy.dto.IncomeDTO;
 import com.poor.billy.model.user.Role;
+import com.poor.billy.model.user.User;
 import com.poor.billy.service.IncomeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,7 +26,7 @@ public class IncomeController {
     }
 
     @PostMapping("/new")
-//    @RolesAllowed(Role.FINANCIER)
+    @RolesAllowed(User.FINANCIER)
     public ResponseEntity<IncomeDTO> createIncome(@RequestBody IncomeDTO incomeDTO) {
         return new ResponseEntity<>(incomeService.createIncome(incomeDTO), HttpStatus.OK);
     }

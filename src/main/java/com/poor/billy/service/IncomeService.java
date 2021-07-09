@@ -34,6 +34,11 @@ public class IncomeService {
         this.incomeRepository = incomeRepository;
     }
 
+    /**
+     * Method add new income money
+     * @param incomeDTO - data transfer object for Income class
+     * @return - saved income and mapped incomeDTO
+     */
     public IncomeDTO createIncome(IncomeDTO incomeDTO) {
         Income income = incomeMapper.map(incomeDTO, Income.class);
         income.setUser(userMapper.map(JWTUser.getCurrentUser(), User.class));
