@@ -5,6 +5,8 @@ import com.poor.billy.dto.FieldErrorDTO;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.NonNull;
+import org.springframework.lang.NonNullApi;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -46,7 +48,7 @@ public class ExceptionAdvice extends ResponseEntityExceptionHandler {
     public ErrorsDTO BadRequestHandler(BadRequestException ex) {
 
         ErrorsDTO errorsDTO = new ErrorsDTO();
-        errorsDTO.setServerErrors(ex.getMessage());
+        errorsDTO.setServerError(ex.getMessage());
 
         return errorsDTO;
     }
