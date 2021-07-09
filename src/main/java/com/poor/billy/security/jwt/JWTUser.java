@@ -43,7 +43,7 @@ public class JWTUser implements UserDetails {
     }
 
     /**
-     * Возвращает авторизованного пользователя
+     * Возвращает авторизованного JWT пользователя
      */
     public static JWTUser getCurrentUser() {
         return (JWTUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();

@@ -6,5 +6,6 @@ package com.poor.billy.model.user;
  * @author King Arthuro Vartanyan / 30.06.2021
  */
 public enum Role {
+
     ADMIN, FINANCIER
 }

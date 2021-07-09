@@ -1,5 +1,6 @@
 package com.poor.billy.model.operation;
 
+import com.poor.billy.model.user.User;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -34,4 +35,11 @@ public class Operation {
      */
     @Column(name = "transaction_date")
     protected Date transactionDate;
+
+    /**
+     * The user who owns the operations
+     */
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false, updatable = false)
+    protected User user;
 }
