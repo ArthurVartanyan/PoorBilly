@@ -1,7 +1,7 @@
 package com.poor.billy.service;
 
 import com.poor.billy.dto.UserRegistrationDTO;
-import com.poor.billy.exceptions.InvalidArgumentException;
+import com.poor.billy.exceptions.BadRequestException;
 import com.poor.billy.model.user.Role;
 import com.poor.billy.model.user.User;
 import com.poor.billy.repository.UserRepository;
@@ -42,7 +42,7 @@ public class UserService {
         if (userRegistrationDTO.getPassword().equals(userRegistrationDTO.getPasswordControl())) {
             user.setPassword(passwordEncoder.encode(userRegistrationDTO.getPassword()));
         } else {
-            throw new InvalidArgumentException("Error! Password mismatch!");
+            throw new BadRequestException("Error! Password mismatch!");
         }
         return userRepository.save(user).getId();
     }
