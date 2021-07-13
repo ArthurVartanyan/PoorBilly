@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -38,7 +39,7 @@ public class UserController {
     private final JWTTokenProvider jwtTokenProvider;
 
     @PostMapping("/registration")
-    public ResponseEntity<Long> registration(@RequestBody UserRegistrationDTO userRegistrationDTO) {
+    public ResponseEntity<Long> registration(@Valid @RequestBody UserRegistrationDTO userRegistrationDTO) {
         return new ResponseEntity<>(userService.registration(userRegistrationDTO), HttpStatus.OK);
     }
 
