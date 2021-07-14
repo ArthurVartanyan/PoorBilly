@@ -26,7 +26,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     /**
-     * Использован BCrypt
+     * Using BCrypt
      */
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
