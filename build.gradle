@@ -1,16 +1,19 @@
 plugins {
-    id 'io.qameta.allure' version '2.5' // Latest Plugin Version
+    id 'io.qameta.allure' version '2.5'
     id 'java'
 }
 
 allure {
     autoconfigure = true
-    version = '2.7.0'  // Latest Allure Version
+    version = '2.7.0'
 
     useJUnit5 {
-        version = '2.7.0' // Latest Allure Version
+        version = '2.7.0'
     }
+}
 
+configurations {
+    testCompile
 }
 
 group 'com.poor-billy'
