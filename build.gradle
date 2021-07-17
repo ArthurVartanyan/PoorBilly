@@ -45,7 +45,6 @@ dependencies {
 
     implementation group: 'org.postgresql', name: 'postgresql', version: '42.2.22'
 
-    compile files("${System.properties['java.home']}/../lib/tools.jar")
 }
 
 test {
