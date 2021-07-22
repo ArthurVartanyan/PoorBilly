@@ -16,7 +16,7 @@ import java.util.Date;
 @Getter
 @Setter
 @Entity
-@Table(name= "operation", schema = "public")
+@Table(name = "operation", schema = "public")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Operation {
 
@@ -35,6 +35,12 @@ public class Operation {
      */
     @Column(name = "transaction_date")
     protected Date transactionDate;
+
+    /**
+     * Is deleted recording or not
+     */
+    @Column(name = "deleted")
+    protected Boolean deleted;
 
     /**
      * The user who owns the operations

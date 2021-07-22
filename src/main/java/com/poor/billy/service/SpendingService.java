@@ -1,7 +1,7 @@
 package com.poor.billy.service;
 
 import com.poor.billy.dto.SpendingDTO;
-import com.poor.billy.dto.SpendingDTO;
+import com.poor.billy.exceptions.EntityNotFoundException;
 import com.poor.billy.mapper.SpendingMapper;
 import com.poor.billy.mapper.UserMapper;
 import com.poor.billy.model.operation.Spending;
@@ -44,6 +44,28 @@ public class SpendingService {
     public SpendingDTO createSpending(SpendingDTO spendingDTO) {
         Spending spending = spendingMapper.map(spendingDTO, Spending.class);
         spending.setUser(userMapper.map(JWTUser.getCurrentUser(), User.class));
+        return spendingMapper.map(spendingRepository.save(spending), SpendingDTO.class);
+    }
+
+    /**
+     * Method for delete spending recording in stat
+     *
+     * @param id - spending ID
+     */
+    public void deleteIncome(Long id) {
+        Spending spending = spendingRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Spending with id:" + id + "is not exists"));
+        spending.setDeleted(true);
+        spendingRepository.save(spending);
+    }
+
+    public SpendingDTO editSpending(Long id, SpendingDTO spendingDTO) {
+        Spending spending = spendingRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Spending with id:" + id + "is not exists"));
+
+        spending.setType(spendingDTO.getType());
+        spending.setSum(spendingDTO.getSum());
+        spending.setTransactionDate(spendingDTO.getTransactionDate());
         return spendingMapper.map(spendingRepository.save(spending), SpendingDTO.class);
     }
 }
