@@ -28,6 +28,6 @@ public class SpendingController {
     @PostMapping("/new")
     @RolesAllowed(User.FINANCIER)
     public ResponseEntity<SpendingDTO> createSpending(@Valid @RequestBody SpendingDTO spendingDTO) {
-        return new ResponseEntity<>(spendingService.createSpending(spendingDTO), HttpStatus.OK);
+        return new ResponseEntity<>(spendingService.createSpending(spendingDTO), HttpStatus.CREATED);
     }
 }

@@ -40,7 +40,7 @@ public class UserController {
 
     @PostMapping("/registration")
     public ResponseEntity<Long> registration(@Valid @RequestBody UserRegistrationDTO userRegistrationDTO) {
-        return new ResponseEntity<>(userService.registration(userRegistrationDTO), HttpStatus.OK);
+        return new ResponseEntity<>(userService.registration(userRegistrationDTO), HttpStatus.CREATED);
     }
 
     @PostMapping("/login")

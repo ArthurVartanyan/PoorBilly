@@ -28,6 +28,6 @@ public class IncomeController {
     @PostMapping("/new")
     @RolesAllowed(User.FINANCIER)
     public ResponseEntity<IncomeDTO> createIncome(@Valid @RequestBody IncomeDTO incomeDTO) {
-        return new ResponseEntity<>(incomeService.createIncome(incomeDTO), HttpStatus.OK);
+        return new ResponseEntity<>(incomeService.createIncome(incomeDTO), HttpStatus.CREATED);
     }
 }
