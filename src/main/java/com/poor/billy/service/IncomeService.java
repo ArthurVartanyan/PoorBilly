@@ -13,6 +13,8 @@ import com.poor.billy.security.jwt.JWTUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class IncomeService {
 
@@ -45,6 +47,7 @@ public class IncomeService {
      */
     public IncomeDTO createIncome(IncomeDTO incomeDTO) {
         Income income = incomeMapper.map(incomeDTO, Income.class);
+        income.setDeleted(false);
         income.setUser(userMapper.map(JWTUser.getCurrentUser(), User.class));
         return incomeMapper.map(incomeRepository.save(income), IncomeDTO.class);
     }
@@ -61,6 +64,13 @@ public class IncomeService {
         incomeRepository.save(income);
     }
 
+    /**
+     * Method for edit income operation
+     *
+     * @param id        - income ID
+     * @param incomeDTO - edited Income
+     * @return - edited Income
+     */
     public IncomeDTO editIncome(Long id, IncomeDTO incomeDTO) {
         Income income = incomeRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Spending with id:" + id + "is not exists"));
@@ -69,5 +79,15 @@ public class IncomeService {
         income.setSum(incomeDTO.getSum());
         income.setTransactionDate(incomeDTO.getTransactionDate());
         return incomeMapper.map(incomeRepository.save(income), IncomeDTO.class);
+    }
+
+    /**
+     * Find all current user incomes
+     *
+     * @return - Incomes DTO
+     */
+    public List<IncomeDTO> findAllIncome() {
+        List<Income> incomes = incomeRepository.findAllByUserIdAndDeletedIsFalse(JWTUser.getCurrentUserID());
+        return incomeMapper.mapAsList(incomes, IncomeDTO.class);
     }
 }

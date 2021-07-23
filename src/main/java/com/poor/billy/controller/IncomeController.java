@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/income")
@@ -29,6 +30,12 @@ public class IncomeController {
     @Autowired
     public void setIncomeService(IncomeService incomeService) {
         this.incomeService = incomeService;
+    }
+
+    @GetMapping("/all")
+    @RolesAllowed(User.FINANCIER)
+    public ResponseEntity<List<IncomeDTO>> findAllCurrentUserIncomes() {
+        return new ResponseEntity<>(incomeService.findAllIncome(), HttpStatus.OK);
     }
 
     @PostMapping("/new")

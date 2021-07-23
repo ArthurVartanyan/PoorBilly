@@ -27,19 +27,19 @@ public class Operation {
     /**
      * Income or spending transaction sum
      */
-    @Column(name = "sum")
+    @Column(name = "sum", nullable = false)
     protected BigDecimal sum;
 
     /**
      * Income or spending transaction date
      */
-    @Column(name = "transaction_date")
+    @Column(name = "transaction_date", nullable = false)
     protected Date transactionDate;
 
     /**
      * Is deleted recording or not
      */
-    @Column(name = "deleted")
+    @Column(name = "deleted", nullable = false)
     protected Boolean deleted;
 
     /**

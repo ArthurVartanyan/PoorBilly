@@ -1,15 +1,19 @@
 package com.poor.billy.service;
 
+import com.poor.billy.dto.IncomeDTO;
 import com.poor.billy.dto.SpendingDTO;
 import com.poor.billy.exceptions.EntityNotFoundException;
 import com.poor.billy.mapper.SpendingMapper;
 import com.poor.billy.mapper.UserMapper;
+import com.poor.billy.model.operation.Income;
 import com.poor.billy.model.operation.Spending;
 import com.poor.billy.model.user.User;
 import com.poor.billy.repository.SpendingRepository;
 import com.poor.billy.security.jwt.JWTUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class SpendingService {
@@ -43,6 +47,7 @@ public class SpendingService {
      */
     public SpendingDTO createSpending(SpendingDTO spendingDTO) {
         Spending spending = spendingMapper.map(spendingDTO, Spending.class);
+        spending.setDeleted(false);
         spending.setUser(userMapper.map(JWTUser.getCurrentUser(), User.class));
         return spendingMapper.map(spendingRepository.save(spending), SpendingDTO.class);
     }
@@ -67,5 +72,15 @@ public class SpendingService {
         spending.setSum(spendingDTO.getSum());
         spending.setTransactionDate(spendingDTO.getTransactionDate());
         return spendingMapper.map(spendingRepository.save(spending), SpendingDTO.class);
+    }
+
+    /**
+     * Find all current user spending list
+     *
+     * @return - SpendingList DTO
+     */
+    public List<SpendingDTO> findAllSpending() {
+        List<Spending> spendingList = spendingRepository.findAllByUserIdAndDeletedIsFalse(JWTUser.getCurrentUserID());
+        return spendingMapper.mapAsList(spendingList, SpendingDTO.class);
     }
 }

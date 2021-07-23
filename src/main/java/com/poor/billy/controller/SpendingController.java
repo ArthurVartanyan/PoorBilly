@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/spending")
@@ -29,6 +30,12 @@ public class SpendingController {
     @Autowired
     public void setSpendingService(SpendingService spendingService) {
         this.spendingService = spendingService;
+    }
+
+    @GetMapping("/all")
+    @RolesAllowed(User.FINANCIER)
+    public ResponseEntity<List<SpendingDTO>> findAllCurrentUserSpending() {
+        return new ResponseEntity<>(spendingService.findAllSpending(), HttpStatus.OK);
     }
 
     @PostMapping("/new")

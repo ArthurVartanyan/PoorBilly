@@ -64,20 +64,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers
-                // Ссылки
-                // Раздаем Swagger
-                        (// -- Swagger UI v2
-                                "/v2/api-docs",
-                                "/swagger-resources",
-                                "/swagger-resources/**",
-                                "/configuration/ui",
-                                "/configuration/security",
-                                "/swagger-ui.html",
-                                "/webjars/**",
-                                // -- Swagger UI v3 (OpenAPI)
-                                "/v3/api-docs/**",
-                                "/swagger-ui/**").permitAll()
+                .antMatchers(// -- Swagger UI v2
+                        "/v2/api-docs",
+                        "/swagger-resources",
+                        "/swagger-resources/**",
+                        "/configuration/ui",
+                        "/configuration/security",
+                        "/swagger-ui.html",
+                        "/webjars/**",
+                        // -- Swagger UI v3 (OpenAPI)
+                        "/v3/api-docs/**",
+                        "/swagger-ui/**")
+                .permitAll()
                 .antMatchers("/api/user/registration", "/api/user/login")
                 .permitAll()
                 .anyRequest()

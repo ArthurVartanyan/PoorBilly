@@ -19,5 +19,6 @@ public class IncomeMapper extends ConfigurableMapper {
         mapperFactory.classMap(IncomeDTO.class, Income.class)
                 .byDefault()
                 .register();
+
     }
 }
