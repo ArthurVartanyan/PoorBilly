@@ -1,6 +1,5 @@
 package com.poor.billy.security;
 
-import com.poor.billy.mapper.UserMapper;
 import com.poor.billy.model.user.User;
 import com.poor.billy.repository.UserRepository;
 import com.poor.billy.security.jwt.JWTUser;
@@ -27,7 +26,7 @@ public class JWTUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) {
 
         User user = userRepository.findByLogin(username)
-                .orElseThrow(() -> new AuthenticationServiceException("Пользователя с такими данными не существует!"));
+                .orElseThrow(() -> new AuthenticationServiceException("There is no user with such data!"));
 
         JWTUser jwtUser = JWTUserFactory.create(user);
         log.info("IN loadUserByUsername - user with username: {} successfully loaded", username);

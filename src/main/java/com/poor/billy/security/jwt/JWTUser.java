@@ -1,6 +1,5 @@
 package com.poor.billy.security.jwt;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.poor.billy.model.user.Role;
 import com.poor.billy.model.user.User;
 import lombok.AllArgsConstructor;

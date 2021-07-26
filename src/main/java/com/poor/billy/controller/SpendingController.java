@@ -6,12 +6,14 @@ import com.poor.billy.model.user.User;
 import com.poor.billy.repository.SpendingRepository;
 import com.poor.billy.service.SpendingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -30,6 +32,17 @@ public class SpendingController {
     @Autowired
     public void setSpendingService(SpendingService spendingService) {
         this.spendingService = spendingService;
+    }
+
+    @GetMapping("/all/filter")
+    @RolesAllowed(User.FINANCIER)
+    public ResponseEntity<List<SpendingDTO>> findAllUserSpendingWithDate(@RequestParam(required = false)
+                                                                         @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+                                                                                 Date fromDay,
+                                                                         @RequestParam(required = false)
+                                                                         @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+                                                                                 Date toDay) {
+        return new ResponseEntity<>(spendingService.findAllByFilter(fromDay, toDay), HttpStatus.OK);
     }
 
     @GetMapping("/all")

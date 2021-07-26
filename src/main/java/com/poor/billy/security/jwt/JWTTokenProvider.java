@@ -36,7 +36,7 @@ public class JWTTokenProvider {
      * Generate TOKEN
      *
      * @param login - user login
-     * @param role - user role
+     * @param role  - user role
      * @return TOKEN
      */
     public String createToken(String login, Role role) {

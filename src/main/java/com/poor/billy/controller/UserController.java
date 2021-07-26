@@ -2,13 +2,11 @@ package com.poor.billy.controller;
 
 import com.poor.billy.dto.UserAuthenticationDTO;
 import com.poor.billy.dto.UserRegistrationDTO;
-import com.poor.billy.exceptions.EntityNotFoundException;
 import com.poor.billy.model.user.User;
 import com.poor.billy.repository.UserRepository;
 import com.poor.billy.security.jwt.JWTTokenProvider;
 import com.poor.billy.service.UserService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;

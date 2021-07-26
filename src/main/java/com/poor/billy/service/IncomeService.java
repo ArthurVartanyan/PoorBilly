@@ -1,18 +1,18 @@
 package com.poor.billy.service;
 
 import com.poor.billy.dto.IncomeDTO;
-import com.poor.billy.dto.SpendingDTO;
 import com.poor.billy.exceptions.EntityNotFoundException;
 import com.poor.billy.mapper.IncomeMapper;
 import com.poor.billy.mapper.UserMapper;
 import com.poor.billy.model.operation.Income;
-import com.poor.billy.model.operation.Spending;
 import com.poor.billy.model.user.User;
 import com.poor.billy.repository.IncomeRepository;
 import com.poor.billy.security.jwt.JWTUser;
+import com.poor.billy.specification.OperationSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -88,6 +88,19 @@ public class IncomeService {
      */
     public List<IncomeDTO> findAllIncome() {
         List<Income> incomes = incomeRepository.findAllByUserIdAndDeletedIsFalse(JWTUser.getCurrentUserID());
+        return incomeMapper.mapAsList(incomes, IncomeDTO.class);
+    }
+
+    /**
+     * Find all incomes with date filter
+     *
+     * @param fromDay - Countdown from which day
+     * @param toDay   - Countdown to what day
+     * @return - list of income DTOs
+     */
+    public List<IncomeDTO> findAllByDate(Date fromDay, Date toDay) {
+        List<Income> incomes = incomeRepository
+                .findAll(OperationSpecification.betweenIncomeDate(JWTUser.getCurrentUserID(), fromDay, toDay));
         return incomeMapper.mapAsList(incomes, IncomeDTO.class);
     }
 }

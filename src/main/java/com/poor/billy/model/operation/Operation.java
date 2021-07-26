@@ -33,6 +33,7 @@ public class Operation {
     /**
      * Income or spending transaction date
      */
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "transaction_date", nullable = false)
     protected Date transactionDate;
 

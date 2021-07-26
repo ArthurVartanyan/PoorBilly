@@ -17,10 +17,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @RequiredArgsConstructor
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(jsr250Enabled = true) // Включаем @RolesAllowed
+@EnableGlobalMethodSecurity(jsr250Enabled = true) // Turn on @RolesAllowed
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
-    // Fields
 
     private final JWTUserDetailsService jwtUserDetailsService;
 
@@ -34,7 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     /**
-     * Работаем без внедрения зависимостей, так как возникает цикличность
+     * We work without dependency injection, as there is a cyclical nature
      *
      * @param userDetailsService - service where override and implements details methods
      * @return JwtTokenProvider
@@ -53,9 +51,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     /**
-     * Метод конфигураций.
-     * Вместо аннотаций над методами и классами для доступа по ролям,
-     * было решено использовать antMatchers с ограничениями по ссылкам (по ролям).
+     * Config method.
+     * Instead of annotations over methods and classes for access by role,
+     * it was decided to use antMatchers with restrictions on links (by role).
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {

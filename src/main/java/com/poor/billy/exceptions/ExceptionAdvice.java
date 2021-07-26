@@ -5,8 +5,6 @@ import com.poor.billy.dto.FieldErrorDTO;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.lang.NonNull;
-import org.springframework.lang.NonNullApi;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -39,7 +37,7 @@ public class ExceptionAdvice extends ResponseEntityExceptionHandler {
     /**
      * BadRequestException
      *
-     * @param ex
+     * @param ex - exception param
      * @return message
      */
     @ResponseBody
@@ -56,11 +54,11 @@ public class ExceptionAdvice extends ResponseEntityExceptionHandler {
     /**
      * ResponseEntity HANDLE
      *
-     * @param ex
-     * @param headers
-     * @param status
-     * @param request
-     * @return new ResponseEntity<>
+     * @param ex - exception param
+     * @param headers - not using(for override)
+     * @param status - not using(for override)
+     * @param request - not using(for override)
+     * @return new ResponseEntity<> with error and valid errors list
      */
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(

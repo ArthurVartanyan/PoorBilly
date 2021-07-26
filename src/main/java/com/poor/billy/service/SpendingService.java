@@ -1,18 +1,18 @@
 package com.poor.billy.service;
 
-import com.poor.billy.dto.IncomeDTO;
 import com.poor.billy.dto.SpendingDTO;
 import com.poor.billy.exceptions.EntityNotFoundException;
 import com.poor.billy.mapper.SpendingMapper;
 import com.poor.billy.mapper.UserMapper;
-import com.poor.billy.model.operation.Income;
 import com.poor.billy.model.operation.Spending;
 import com.poor.billy.model.user.User;
 import com.poor.billy.repository.SpendingRepository;
 import com.poor.billy.security.jwt.JWTUser;
+import com.poor.billy.specification.OperationSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -81,6 +81,19 @@ public class SpendingService {
      */
     public List<SpendingDTO> findAllSpending() {
         List<Spending> spendingList = spendingRepository.findAllByUserIdAndDeletedIsFalse(JWTUser.getCurrentUserID());
+        return spendingMapper.mapAsList(spendingList, SpendingDTO.class);
+    }
+
+    /**
+     * Find all spending with date filter
+     *
+     * @param fromDay - Countdown from which day
+     * @param toDay   - Countdown to what day
+     * @return - list of spending DTOs
+     */
+    public List<SpendingDTO> findAllByFilter(Date fromDay, Date toDay) {
+        List<Spending> spendingList = spendingRepository
+                .findAll(OperationSpecification.betweenSpendingDate(JWTUser.getCurrentUserID(), fromDay, toDay));
         return spendingMapper.mapAsList(spendingList, SpendingDTO.class);
     }
 }

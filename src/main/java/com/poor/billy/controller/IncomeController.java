@@ -6,12 +6,14 @@ import com.poor.billy.model.user.User;
 import com.poor.billy.repository.IncomeRepository;
 import com.poor.billy.service.IncomeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -36,6 +38,17 @@ public class IncomeController {
     @RolesAllowed(User.FINANCIER)
     public ResponseEntity<List<IncomeDTO>> findAllCurrentUserIncomes() {
         return new ResponseEntity<>(incomeService.findAllIncome(), HttpStatus.OK);
+    }
+
+    @GetMapping("/all/filter")
+    @RolesAllowed(User.FINANCIER)
+    public ResponseEntity<List<IncomeDTO>> findAllUserSpendingWithDate(@RequestParam(required = false)
+                                                                       @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+                                                                               Date fromDay,
+                                                                       @RequestParam(required = false)
+                                                                       @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+                                                                               Date toDay) {
+        return new ResponseEntity<>(incomeService.findAllByDate(fromDay, toDay), HttpStatus.OK);
     }
 
     @PostMapping("/new")
